@@ -5,13 +5,18 @@
 #include <locale.h>
 #include <time.h>
 
+#define NUM_OP 4
+#define TAM_SETA 5 //qnt q vc quer +1
+
+
+
 void telainicial(char *setas);
 char* opcao(int e, char *ponteiro);
 
 
 int main(){
-    int escolha = 1;
-    char opcoes[4][4];
+    int escolha = 0;
+    char opcoes[NUM_OP][TAM_SETA];
     char *p = &opcoes[0][0];
 
     while (true)
@@ -27,24 +32,28 @@ int main(){
             if (kbhit()) {
                 teclapressionada = getch(); // Lê a tecla pressionada
                 // printf("tecla: %d", teclapressionada);
-                
-                if (teclapressionada == 119){
-                    if (escolha == 0){
-                        escolha = 3;
+                if (teclapressionada == -32) {
+
+                    teclapressionada = getch();
+
+                    if (teclapressionada == 72){
+                        if (escolha == 0){
+                            escolha = 3;
+                        }
+                        else if ((escolha > 0)&&(escolha <= 3)){
+                            escolha--;
+                        }
+                    loop = false;
                     }
-                    else if ((escolha > 0)&&(escolha <= 3)){
-                        escolha--;
+                    if (teclapressionada == 80){
+                        if (escolha == 3){
+                            escolha = 0;
+                        }
+                         else if ((escolha >= 0)&&(escolha < 3)){
+                            escolha++;
+                        }
+                    loop = false;
                     }
-                loop = false;
-                }
-                if (teclapressionada == 115){
-                    if (escolha == 3){
-                        escolha = 0;
-                    }
-                     else if ((escolha >= 0)&&(escolha < 3)){
-                        escolha++;
-                    }
-                loop = false;
                 }
             }
         }
@@ -53,38 +62,50 @@ int main(){
 
 char* opcao(int e, char *ponteiro){
     char *p0 = ponteiro;
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < NUM_OP; i++)
     {   
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < TAM_SETA-1; j++)
         {
             *ponteiro = ' ';
             ponteiro++;
         }
+        *ponteiro = '\0';
+        ponteiro++;
+
         
     }
     ponteiro = p0;
-    ponteiro = ponteiro + (e*4);
+    ponteiro = ponteiro + (e*TAM_SETA);
+    for (int i = 0; i < TAM_SETA-2; i++)
+    {
     *ponteiro = '-';
     ponteiro++;
-    *ponteiro = '-';
-    ponteiro++;
-    *ponteiro = '-';
-    ponteiro++;
+    }
     *ponteiro = '>';
     ponteiro++;
-    
-    return p0;
+    *ponteiro = '\0';
+
+    ponteiro=p0;
 }
 
 
 void telainicial(char *setas){
     
+  char alternativas[][30] = {"Vender Bilhetes", "Validar Bilhetes", "Acessar Obras", "Resumo de Vendas"};
+
     printf("Bem vindo ao Programa de Administracao de Museus\n");
     printf("O que voce deseja fazer?\n\n");
-
-    printf("%c%c%c%cVender Bilhetes\n"  , setas[0] , setas[1] , setas[2],  setas[3] );
-    printf("%c%c%c%cValidar Bilhetes\n" , setas[4] , setas[5] , setas[6],  setas[7] );
-    printf("%c%c%c%cAcessar Obras\n"    , setas[8] , setas[9] , setas[10], setas[11]);
-    printf("%c%c%c%cResumo de Vendas\n" , setas[12], setas[13], setas[14], setas[15]);
-
+    int cont=0;
+    for (int i = 0; i < NUM_OP; i++)
+    {
+        for (int j = 0; j < TAM_SETA; j++)
+        {
+            if (j == TAM_SETA){
+                cont++;
+            }
+            printf("%c", setas[cont]);
+            cont++;
+        }
+        printf("%s\n", alternativas[i]);
+    }
 }
