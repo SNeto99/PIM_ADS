@@ -12,9 +12,9 @@ void printar(int opcao);
 void printar2(char pergunta[]);
 
 
-int main(){
+int a(){
         while (true){
-            int op, *p;
+            int op;
             char s[]="qual é seu nivel de satisfação";
             // p=&s[0];
             printar2(s);
@@ -58,4 +58,32 @@ void printar2(char pergunta[]){
     printf("\n 3 - Neutro");
     printf("\n 1 - Pouco satisfeito");
     printf("\n 2 - Insatisfeito");
+}
+
+
+int elevado(int x, int y){
+    int x0=x;
+    for (int i = 1; i < y; i++)
+    {
+        x=x*x0;
+    }
+    return x;
+}
+
+
+
+int main(){
+    int x, y, resposta;
+    printf("digite x: ");
+    scanf("%d", &x);
+        printf("\ndigite y: ");
+    scanf("%d", &y);
+
+    // resposta=elevado(x,y);
+
+    printf("resposta: %d\n\n\n\n", elevado(x,y));
+
+
+    printar(1);
+    printar2("gostou da obra");
 }

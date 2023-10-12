@@ -4,6 +4,7 @@
 #include <time.h>
 #include <string.h>
 
+#define NUMSES  4
 
 typedef struct {
     int numero;
@@ -16,9 +17,9 @@ typedef struct {
     float preco;
 } Sessao;
 
-#define NUMSES  4
-int main(){
 
+
+void sla(){
     Sessao ses[NUMSES];
 
     strcpy(ses[0].nome, "sessao de arte moderna        ");
@@ -38,6 +39,28 @@ int main(){
     for (int i=0; i < n_sessoes; i++){
     printf("        %d - %s- R$%.2f \n", i+1, ses[i].nome, ses[i].preco);
     }
+}
+
+
+int main(){
+    int v[50],q=0,e;
+    char entrada[50];
+    
+    while (entrada != "000"){
+        system("cls");
+        sla();
+        printf("\n\n\n\t\t\t\texposicao 1: %d", q);
+        // printf("%d", q);
+        // for (int i = 0; i<q ; i++)
+        // {
+        // }
+        printf("\n\n\n\t\tQuantos ingressos voce deseja?\n");
+        scanf("%d", &e);
+        q=q+e;
+        
+    }
 
     return 0;
 }
+
+
